@@ -1,7 +1,12 @@
 package banco;
 
+/**
+ * Conta abstrata
+ * @author Rodrigo Hiury
+ * @version 1.0.0
+ */
 
-public class Conta implements IConta {
+public abstract class Conta implements IConta {
 
     protected int AGENCIA_PADRAO = 0001;
     protected static int SEQUENCIAL = 1;
@@ -12,7 +17,6 @@ public class Conta implements IConta {
     protected Cliente titular;
 
     
-
     public Conta(Cliente cliente) {
         this.agencia = AGENCIA_PADRAO;
         this.numero = SEQUENCIAL++;
@@ -41,19 +45,7 @@ public class Conta implements IConta {
     }
 
     @Override
-    public boolean transferir(double valor, int numero) {
-        Conta contaDestino = new Conta();
-        contaDestino = Banco.buscarConta(numero);
-        if(contaDestino==null){
-            return true;
-        }
-        boolean i = sacar(valor);
-        if(i==false){
-            contaDestino.depositar(valor);
-            return false;
-        }
-        return true;
-    }
+    public abstract boolean transferir(double valor, int numero);
 
     public int getAgencia() {
         return agencia;
@@ -78,4 +70,6 @@ public class Conta implements IConta {
 		System.out.println(String.format("Numero: %d", this.numero));
 		System.out.println(String.format("Saldo: R$ %.2f", this.saldo));
 	}
+
+    public abstract boolean tipoConta();
 }
