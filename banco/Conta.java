@@ -120,9 +120,19 @@ public abstract class Conta implements IConta {
 	}
 
     /**
+     * Imprime os dados da conta no console, exceto o saldo
+     */
+
+    public void imprimirInfosPublicas() {
+		System.out.println("Titular: " + titular.getNome() + " " + titular.getSobrenome());
+        System.out.println("Data de Nascimento: " + titular.getDataNascimento());
+		System.out.println(String.format("Agencia: %d", this.agencia));
+		System.out.println(String.format("Numero: %d", this.numero));
+	}
+    /**
      * Retorna o tipo da conta
      * @return Se Conta Corrente, true. Se Conta Poupança, false
      */
-    
+
     public abstract boolean tipoConta();
 }

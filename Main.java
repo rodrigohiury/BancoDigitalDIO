@@ -67,7 +67,6 @@ public class Main {
             System.out.println("Erro! Não foi possível encontrar sua conta!");
             System.out.println("Verifique os dados e tente novamente!");
         }
-        scanner.close();
     }
 
     /**
@@ -106,7 +105,6 @@ public class Main {
                 }
             }
         }
-        scanner.close();
     }
 
     /**
@@ -125,7 +123,6 @@ public class Main {
         } else {
             System.out.println(String.format("Saldo Insuficiente!!! Saldo: R$ %.2f", conta.getSaldo()));
         }
-        scanner.close();
     }
 
     /**
@@ -139,7 +136,6 @@ public class Main {
         float valor1 = scanner.nextFloat();
         conta.depositar(valor1);
         System.out.println(String.format("Valor depositado com sucesso!!! Saldo: R$ %.2f", conta.getSaldo()));
-        scanner.close();
     }
 
     /**
@@ -153,31 +149,32 @@ public class Main {
         int ag1 = scanner.nextInt();
         System.out.println("Informe o numero da conta destino: ");
         int num = scanner.nextInt();
-        System.out.println("Informe o valor a ser transferido: ");
-        float valor2 = scanner.nextFloat();
-        boolean j = conta.transferir(valor2, num);
-        if (j == false) {
-            System.out.println(
-                    String.format("Valor transferido com sucesso!!! Saldo: R$ %.2f", conta.getSaldo()));
-            System.out.println("Conta de Destino: ");
-            Banco.buscarConta(num).imprimirInfosComuns();
-        } else {
-            System.out.println("ERRO! Não foi possível transferir!");
-            if (conta.getSaldo() < valor2) {
+        if(Banco.buscarConta(num)!=null){
+            System.out.println("Informe o valor a ser transferido: ");
+            float valor2 = scanner.nextFloat();
+            boolean j = conta.transferir(valor2, num);
+            if (j == false) {
                 System.out.println(
-                        String.format("Saldo Insuficiente!!! Saldo: R$ %.2f", conta.getSaldo()));
+                        String.format("Valor transferido com sucesso!!! Saldo: R$ %.2f", conta.getSaldo()));
+                System.out.println("Conta de Destino: ");
+                Banco.buscarConta(num).imprimirInfosPublicas();
             } else {
-                System.out.println("Conta não Encontrada! Verifique os dados e tente novamente!");
+                System.out.println("ERRO! Não foi possível transferir!");
+                if (conta.getSaldo() < valor2) {
+                    System.out.println(
+                            String.format("Saldo Insuficiente!!! Saldo: R$ %.2f", conta.getSaldo()));
+                }
             }
+        } else {
+            System.out.println("Conta não Encontrada! Verifique os dados e tente novamente!");
         }
-        scanner.close();
     }
 
     /**
      * Entra na interface de criação de usuário
      * @param banco Banco atualmente utilizado
      */
-    
+
     public static void criarUsuario(Banco banco) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Criando Usuário!!!");
@@ -216,6 +213,5 @@ public class Main {
                 System.out.println("Opção Inválida!!!");
             }
         }
-        scanner.close();
     }
 }
