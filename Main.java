@@ -6,6 +6,13 @@ import banco.ContaPoupanca;
 import banco.Banco;
 import banco.Cliente;
 
+/**
+ * Banco Digital
+ * Este é a Interface do console do Banco Digital
+ * @author Rodrigo Hiury
+ * @version 1.0.0
+ */
+
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -36,6 +43,11 @@ public class Main {
         scanner.close();
     }
 
+    /**
+     * Entra na interface de log do Banco
+     * @param banco Banco atualmente utilizado
+     */
+
     public static void log(Banco banco) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Logar\nInsira sua agencia: ");
@@ -57,6 +69,11 @@ public class Main {
         }
         scanner.close();
     }
+
+    /**
+     * Entra na interface com a conta já logada
+     * @param conta Conta logada
+     */
 
     public static void logConta(Conta conta) {
         Scanner scanner = new Scanner(System.in);
@@ -92,6 +109,11 @@ public class Main {
         scanner.close();
     }
 
+    /**
+     * Entra na interface de saque
+     * @param conta Conta a ser sacada
+     */
+
     public static void saque(Conta conta) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Informe quanto deseja sacar: ");
@@ -106,6 +128,11 @@ public class Main {
         scanner.close();
     }
 
+    /**
+     * Entra na interface de depósito
+     * @param conta Conta a receber o depósito
+     */
+
     public static void deposito(Conta conta) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Informe quanto deseja depositar: ");
@@ -114,6 +141,11 @@ public class Main {
         System.out.println(String.format("Valor depositado com sucesso!!! Saldo: R$ %.2f", conta.getSaldo()));
         scanner.close();
     }
+
+    /**
+     * Entra na interface de transferência
+     * @param conta Conta a realizar a transferência
+     */
 
     public static void transferencia(Conta conta) {
         Scanner scanner = new Scanner(System.in);
@@ -140,6 +172,11 @@ public class Main {
         }
         scanner.close();
     }
+
+    /**
+     * Entra na interface de criação de usuário
+     * @param banco Banco atualmente utilizado
+     */
     
     public static void criarUsuario(Banco banco) {
         Scanner scanner = new Scanner(System.in);
