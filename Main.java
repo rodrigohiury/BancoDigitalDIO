@@ -13,7 +13,7 @@ public class Main {
         String name = scanner.nextLine();
         Banco banco = new Banco(name);
         int opcao;
-        System.out.println("========== Banco Digital " + Banco.getNome() + " ==========");
+        System.out.println("================== Banco Digital " + Banco.getNome() + " ==================");
         do {
             System.out.println("        Página Principal        ");
             System.out.println("Escolha uma opção:\n1 - Logar\n2 - Criar Conta\n3 - Sair");
@@ -28,6 +28,7 @@ public class Main {
                     conta = Banco.buscarConta(numero);
                     if(conta!=null){
                         System.out.println("Logado com Sucesso!!!");
+                        System.out.println("Bem-Vindo " + conta.getTitular().getNome() + " " + conta.getTitular().getSobrenome());
                         int opcao1 = 0;
                         while (opcao1!=5) {
                             
@@ -36,20 +37,20 @@ public class Main {
                             switch (opcao1) {
                                 case 1:
                                     System.out.println("Informe quanto deseja sacar: ");
-                                    double valor = scanner.nextDouble();
+                                    float valor = scanner.nextFloat();
                                     boolean i = conta.sacar(valor);
                                     if(i==false){
-                                        System.out.println("Valor sacado com sucesso!!! Saldo: R$ " + conta.getSaldo());
+                                        System.out.println(String.format("Valor sacado com sucesso!!! Saldo: R$ %.2f", conta.getSaldo()));
                                         break;
                                     }else{
-                                        System.out.println("Saldo Insuficiente!!! Saldo: R$ " + conta.getSaldo());
+                                        System.out.println(String.format("Saldo Insuficiente!!! Saldo: R$ %.2f", conta.getSaldo()));
                                         break;
                                     }
                                 case 2:
                                     System.out.println("Informe quanto deseja depositar: ");
-                                    double valor1 = scanner.nextDouble();
+                                    float valor1 = scanner.nextFloat();
                                     conta.depositar(valor1);
-                                    System.out.println("Valor depositado com sucesso!!! Saldo: R$ " + conta.getSaldo());
+                                    System.out.println(String.format("Valor depositado com sucesso!!! Saldo: R$ %.2f", conta.getSaldo()));
                                     break;
                                 case 3:
                                     System.out.println("Informe a agencia da conta destino:");
@@ -57,23 +58,29 @@ public class Main {
                                     System.out.println("Informe o numero da conta destino: ");
                                     int num = scanner.nextInt();
                                     System.out.println("Informe o valor a ser transferido: ");
-                                    double valor2 = scanner.nextDouble();
+                                    float valor2 = scanner.nextFloat();
                                     boolean j = conta.transferir(valor2, num);
                                     if(j==false){
-                                        System.out.println("Valor Transferido com Sucesso!!! Saldo: R$ " + conta.getSaldo());
+                                        System.out.println(String.format("Valor transferido com sucesso!!! Saldo: R$ %.2f", conta.getSaldo()));
+                                        System.out.println("Conta de Destino: ");
+                                        Banco.buscarConta(num).imprimirInfosComuns();
                                     }else{
                                         System.out.println("ERRO! Não foi possível transferir!");
                                         if(conta.getSaldo()<valor2){
-                                            System.out.println("Saldo Insuficiente!! Saldo: R$ " + conta.getSaldo());
+                                            System.out.println(String.format("Saldo Insuficiente!!! Saldo: R$ %.2f", conta.getSaldo()));
                                         }else{
                                             System.out.println("Conta não Encontrada! Verifique os dados e tente novamente!");
                                         }
                                     }
                                     break;
+                                case 4:
+                                    System.out.println(String.format("Saldo: R$ %.2f", conta.getSaldo()));
+                                    break;
                                 case 5:
                                     System.out.println("Deslogando...");
                                     break;
                                 default:
+                                    System.out.println("Opção Inválida!!!");
                                     break;
                             }
                         }
@@ -117,11 +124,12 @@ public class Main {
                     }
                     break;
                 case 3:
-                    System.out.println("Obrigado por utilizar nosso servicos.\nSaindo...");
+                    System.out.println("Obrigado por utilizar nosso servicos.\n================== Saindo... ==================");
                     break;
                 default:
                     break;
             }
         }while (opcao!=3);
+        scanner.close();
     }
 }

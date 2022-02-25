@@ -4,19 +4,19 @@ package banco;
 public class Conta implements IConta {
 
     protected int AGENCIA_PADRAO = 0001;
-    protected int SEQUENCIAL = 1;
+    protected static int SEQUENCIAL = 1;
 
     protected int agencia;
     protected int numero;
-    protected double saldo;
+    protected float saldo;
     protected Cliente titular;
 
     
 
     public Conta(Cliente cliente) {
-        agencia = AGENCIA_PADRAO;
-        numero = SEQUENCIAL++;
-        titular = cliente;
+        this.agencia = AGENCIA_PADRAO;
+        this.numero = SEQUENCIAL++;
+        this.titular = cliente;
     }
 
     public Conta(){
@@ -63,7 +63,7 @@ public class Conta implements IConta {
         return numero;
     }
 
-    public double getSaldo() {
+    public float getSaldo() {
         return saldo;
     }
 
@@ -76,6 +76,6 @@ public class Conta implements IConta {
         System.out.println("Data de Nascimento: " + titular.getDataNascimento());
 		System.out.println(String.format("Agencia: %d", this.agencia));
 		System.out.println(String.format("Numero: %d", this.numero));
-		System.out.println(String.format("Saldo: %.2f", this.saldo));
+		System.out.println(String.format("Saldo: R$ %.2f", this.saldo));
 	}
 }
