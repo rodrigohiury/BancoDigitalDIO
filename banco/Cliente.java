@@ -3,7 +3,6 @@ package banco;
 /**
  * Classe Cliente
  * @author Rodrigo Hiury
- * @version 1.0.0
  */
 public class Cliente {
     

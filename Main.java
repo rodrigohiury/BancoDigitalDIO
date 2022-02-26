@@ -12,7 +12,7 @@ import banco.AccountException.NoAccountException;
  * Banco Digital
  * Este é a Interface do console do Banco Digital
  * @author Rodrigo Hiury
- * @version 1.0.0
+ * @version 1.1.0 Implementação das Exceptions e Mudança do armazenamento das contas no banco para ArrayList
  */
 
 public class Main {

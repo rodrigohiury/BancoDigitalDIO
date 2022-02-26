@@ -6,7 +6,6 @@ import banco.AccountException.NoAccountException;
 /**
  * Classe Conta Corrente
  * @author Rodrigo Hiury
- * @version 1.0.0
  */
 
 public class ContaCorrente extends Conta{

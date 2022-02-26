@@ -6,7 +6,6 @@ import banco.AccountException.NoAccountException;;
 /**
  * Conta abstrata
  * @author Rodrigo Hiury
- * @version 1.0.0
  */
 
 public abstract class Conta implements IConta{
@@ -41,8 +40,7 @@ public abstract class Conta implements IConta{
     /**
      * Saca o valor fornecido do saldo da conta
      * @param valor valor a ser sacado
-     * @return Se houve erro, retorna true. Se não houve erro, false
-     * @throws LowFundException
+     * @throws LowFundException Se não há saldo suficiente
      */
 
     @Override
@@ -70,8 +68,8 @@ public abstract class Conta implements IConta{
      * Transfere um valor de uma conta a outra
      * @param valor valor a ser transferido
      * @param numero numero da conta a receber a transferência
-     * @return Se houve erro, retorna true. Se não houve erro, false
-     * @throws NoAccountException
+     * @throws NoAccountException Se a conta destino não for encontrada
+     * @throws LowFundException Se não houver saldo suficiente
      */
     @Override
     public abstract void transferir(double valor, int numero) throws LowFundException, NoAccountException;
