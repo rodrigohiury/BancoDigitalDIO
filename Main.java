@@ -70,9 +70,6 @@ public class Main {
         } catch (NoAccountException e) {
             System.out.println(e.getMessage());
             System.out.println("Verifique os dados e tente novamente!");
-        } catch (NullPointerException e) {
-            System.out.println("ERRO!!! Não foi possível encontrar uma conta com a agencia " + agencia + " e numero " + numero + "!");
-            System.out.println("Verifique os dados e tente novamente!");
         }
     }
 

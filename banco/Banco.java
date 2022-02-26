@@ -49,7 +49,7 @@ public class Banco{
      * @throws NoAccountException Quando uma conta não é encontrada
      */
 
-    public static Conta buscarConta(int numero) throws NoAccountException, NullPointerException {
+    public static Conta buscarConta(int numero) throws NoAccountException{
         for (Conta conta : contas) {
             if (conta.getNumero()==numero) {
                 return conta;
