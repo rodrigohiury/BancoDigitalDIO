@@ -1,5 +1,8 @@
 package banco;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import banco.AccountException.NoAccountException;
 /**
  * Classe Banco 
@@ -10,10 +13,8 @@ import banco.AccountException.NoAccountException;
 public class Banco{
     
     public static String nome;
-    protected static Conta[] contas;
-    protected static int i;             //indice do vetor de contas.
-                                        //Aponta para a primeira posição vaga no vetor de contas.
-    
+    protected static List<Conta> contas;
+
     /**
      * Construtor do Banco
      * @param nome Nome do Banco
@@ -21,8 +22,7 @@ public class Banco{
 
     public Banco(String nome) {
         this.nome = nome;
-        contas = new Conta[100];
-        i = 0;
+        contas = new ArrayList<Conta>();
     }
 
     /**
@@ -30,8 +30,7 @@ public class Banco{
      * @param conta Conta a ser adicionada ao Banco
      */
     public void adicionarConta(Conta conta){
-        contas[i] = conta;
-        i++;
+        contas.add(conta);
     }
 
     /**
@@ -51,9 +50,9 @@ public class Banco{
      */
 
     public static Conta buscarConta(int numero) throws NoAccountException, NullPointerException {
-        for(int n = 0; n<=i;n++){
-            if (contas[n].numero==numero) {
-                return contas[n];
+        for (Conta conta : contas) {
+            if (conta.getNumero()==numero) {
+                return conta;
             }
         }
         throw new NoAccountException(1, numero);
