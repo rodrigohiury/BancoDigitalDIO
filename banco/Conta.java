@@ -1,12 +1,15 @@
 package banco;
 
+import banco.AccountException.LowFundException;
+import banco.AccountException.NoAccountException;;
+
 /**
  * Conta abstrata
  * @author Rodrigo Hiury
  * @version 1.0.0
  */
 
-public abstract class Conta implements IConta {
+public abstract class Conta implements IConta{
 
     protected int AGENCIA_PADRAO = 0001;
     protected static int SEQUENCIAL = 1;
@@ -39,17 +42,17 @@ public abstract class Conta implements IConta {
      * Saca o valor fornecido do saldo da conta
      * @param valor valor a ser sacado
      * @return Se houve erro, retorna true. Se não houve erro, false
+     * @throws LowFundException
      */
 
     @Override
-    public boolean sacar(double valor) {
+    public void sacar(double valor) throws LowFundException {
         if(saldo==0){
-            return true;
-        }else if(valor<saldo){
-            saldo -= valor;
-            return false;
+            throw new LowFundException(saldo);
+        }else if(valor>saldo){
+            throw new LowFundException(saldo);
         }
-        return true;
+        saldo -= valor;
     }
 
     /**
@@ -68,9 +71,10 @@ public abstract class Conta implements IConta {
      * @param valor valor a ser transferido
      * @param numero numero da conta a receber a transferência
      * @return Se houve erro, retorna true. Se não houve erro, false
+     * @throws NoAccountException
      */
     @Override
-    public abstract boolean transferir(double valor, int numero);
+    public abstract void transferir(double valor, int numero) throws LowFundException, NoAccountException;
 
     /**
      * Retorna agencia da conta
@@ -125,7 +129,6 @@ public abstract class Conta implements IConta {
 
     public void imprimirInfosPublicas() {
 		System.out.println("Titular: " + titular.getNome() + " " + titular.getSobrenome());
-        System.out.println("Data de Nascimento: " + titular.getDataNascimento());
 		System.out.println(String.format("Agencia: %d", this.agencia));
 		System.out.println(String.format("Numero: %d", this.numero));
 	}
@@ -135,4 +138,11 @@ public abstract class Conta implements IConta {
      */
 
     public abstract boolean tipoConta();
+
+    @Override
+    public String toString() {
+        return "[agencia=" + agencia + ", numero=" + numero + ", saldo=" + saldo + ", titular=" + titular + "]";
+    }
+
+    
 }

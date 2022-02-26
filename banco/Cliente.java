@@ -9,9 +9,9 @@ public class Cliente {
     
     String nome;
     String sobrenome;
-    int diaNascimento;
-    int mesNascimento;
-    int anoNascimento;
+    protected int diaNascimento;
+    protected int mesNascimento;
+    protected int anoNascimento;
 
     /**
      * Construtor do Cliente
@@ -133,6 +133,11 @@ public class Cliente {
     String getDataNascimento(){
         String data = getDiaNascimento()+"/"+getMesNascimento()+"/"+getAnoNascimento();
         return data;
+    }
+
+    @Override
+    public String toString() {
+        return "[nome=" + nome + ", sobrenome=" + sobrenome + ", Data de Nascimento=" + getDataNascimento() + "]";
     }
 
     

@@ -1,5 +1,6 @@
 package banco;
 
+import banco.AccountException.NoAccountException;
 /**
  * Classe Banco 
  * @author Rodrigo Hiury
@@ -46,14 +47,15 @@ public class Banco{
      * Busca uma conta no vetor de contas a partir do número da conta
      * @param numero Número da conta a ser buscada
      * @return Conta buscada, nulo se não encontrada
+     * @throws NoAccountException Quando uma conta não é encontrada
      */
 
-    public static Conta buscarConta(int numero){
+    public static Conta buscarConta(int numero) throws NoAccountException, NullPointerException {
         for(int n = 0; n<=i;n++){
             if (contas[n].numero==numero) {
                 return contas[n];
             }
         }
-        return null;
+        throw new NoAccountException(1, numero);
     }
 }

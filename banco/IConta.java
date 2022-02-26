@@ -1,9 +1,12 @@
 package banco;
 
+import banco.AccountException.LowFundException;
+import banco.AccountException.NoAccountException;
+
 public interface IConta{
 
-    boolean sacar(double valor);
+    void sacar(double valor) throws LowFundException;
     void depositar(double valor);
-    boolean transferir(double valor, int numero);
+    void transferir(double valor, int numero) throws LowFundException, NoAccountException;
 
 }

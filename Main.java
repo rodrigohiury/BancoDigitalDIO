@@ -1,10 +1,12 @@
 import java.util.Scanner;
 
+import banco.Banco;
+import banco.Cliente;
 import banco.Conta;
 import banco.ContaCorrente;
 import banco.ContaPoupanca;
-import banco.Banco;
-import banco.Cliente;
+import banco.AccountException.LowFundException;
+import banco.AccountException.NoAccountException;
 
 /**
  * Banco Digital
@@ -54,17 +56,22 @@ public class Main {
         int agencia = scanner.nextInt();
         System.out.println("Insira o número da sua conta: ");
         int numero = scanner.nextInt();
-        boolean c = Banco.buscarConta(numero).tipoConta();
-        if (c) {
-            Conta conta = new ContaCorrente();
-            conta = Banco.buscarConta(numero);
-            logConta(conta);
-        } else if (!c) {
-            Conta conta = new ContaPoupanca();
-            conta = Banco.buscarConta(numero);
-            logConta(conta);
-        } else {
-            System.out.println("Erro! Não foi possível encontrar sua conta!");
+        try {
+            boolean c = Banco.buscarConta(numero).tipoConta();
+            if (c) {
+                Conta conta = new ContaCorrente();
+                conta = Banco.buscarConta(numero);
+                logConta(conta);
+            } else if (!c) {
+                Conta conta = new ContaPoupanca();
+                conta = Banco.buscarConta(numero);
+                logConta(conta);
+            }
+        } catch (NoAccountException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Verifique os dados e tente novamente!");
+        } catch (NullPointerException e) {
+            System.out.println("ERRO!!! Não foi possível encontrar uma conta com a agencia " + agencia + " e numero " + numero + "!");
             System.out.println("Verifique os dados e tente novamente!");
         }
     }
@@ -116,12 +123,12 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Informe quanto deseja sacar: ");
         float valor = scanner.nextFloat();
-        boolean i = conta.sacar(valor);
-        if (i == false) {
+        try {
+            conta.sacar(valor);
             System.out.println(
                     String.format("Valor sacado com sucesso!!! Saldo: R$ %.2f", conta.getSaldo()));
-        } else {
-            System.out.println(String.format("Saldo Insuficiente!!! Saldo: R$ %.2f", conta.getSaldo()));
+        } catch (LowFundException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -149,24 +156,20 @@ public class Main {
         int ag1 = scanner.nextInt();
         System.out.println("Informe o numero da conta destino: ");
         int num = scanner.nextInt();
-        if(Banco.buscarConta(num)!=null){
-            System.out.println("Informe o valor a ser transferido: ");
-            float valor2 = scanner.nextFloat();
-            boolean j = conta.transferir(valor2, num);
-            if (j == false) {
+        try {
+            if(Banco.buscarConta(num)!=null){
+                System.out.println("Informe o valor a ser transferido: ");
+                float valor2 = scanner.nextFloat();
+                conta.transferir(valor2, num);
                 System.out.println(
                         String.format("Valor transferido com sucesso!!! Saldo: R$ %.2f", conta.getSaldo()));
                 System.out.println("Conta de Destino: ");
                 Banco.buscarConta(num).imprimirInfosPublicas();
-            } else {
-                System.out.println("ERRO! Não foi possível transferir!");
-                if (conta.getSaldo() < valor2) {
-                    System.out.println(
-                            String.format("Saldo Insuficiente!!! Saldo: R$ %.2f", conta.getSaldo()));
-                }
             }
-        } else {
-            System.out.println("Conta não Encontrada! Verifique os dados e tente novamente!");
+        } catch (LowFundException e) {
+            System.out.println(e.getMessage());
+        } catch (NoAccountException e){
+            System.out.println(e.getMessage());
         }
     }
 
